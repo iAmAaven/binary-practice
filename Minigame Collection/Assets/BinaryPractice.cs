@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class BinaryPractice : MonoBehaviour
 {
-    public TextMeshProUGUI questionText;
+    public TextMeshProUGUI questionText, correctOrIncorrectText;
+    public Color wrongColor, correctColor;
     public TMP_InputField inputField;
     public string gameMode = "bin2dec";
 
     public GameObject mainMenu, gameMenu;
 
 
-    private int limitNumber = 999;
+    private int limitNumber = 1024;
 
     private string binaryQuestion;
     private int decimalQuestion;
@@ -74,18 +75,6 @@ public class BinaryPractice : MonoBehaviour
         return Convert.ToString(decimalValue, 2);
     }
 
-    bool IsBinary(string input)
-    {
-        foreach (char c in input)
-        {
-            if (c != '0' && c != '1')
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-
     void BinaryToDecimal()
     {
         inputField.ActivateInputField();
@@ -105,7 +94,9 @@ public class BinaryPractice : MonoBehaviour
         {
             questionText.text = RandomBinary();
             inputField.text = "";
-            Debug.Log("Correct! New question generated.");
+            correctOrIncorrectText.text = "Correct!";
+            correctOrIncorrectText.color = correctColor;
+            Invoke("ClearCorrectText", 1f);
         }
         else
         {
@@ -113,7 +104,9 @@ public class BinaryPractice : MonoBehaviour
             {
                 questionText.text = RandomBinary();
                 inputField.text = "";
-                Debug.Log("Answer was incorrect or invalid. New question generated.");
+                correctOrIncorrectText.text = "Incorrect.";
+                correctOrIncorrectText.color = wrongColor;
+                Invoke("ClearCorrectText", 1f);
             }
         }
     }
@@ -134,7 +127,9 @@ public class BinaryPractice : MonoBehaviour
         {
             questionText.text = RandomDecimal().ToString();
             inputField.text = "";
-            Debug.Log("Correct! New question generated.");
+            correctOrIncorrectText.text = "Correct!";
+            correctOrIncorrectText.color = correctColor;
+            Invoke("ClearCorrectText", 1f);
         }
         else
         {
@@ -142,6 +137,9 @@ public class BinaryPractice : MonoBehaviour
             {
                 questionText.text = RandomDecimal().ToString();
                 inputField.text = "";
+                correctOrIncorrectText.text = "Incorrect.";
+                correctOrIncorrectText.color = wrongColor;
+                Invoke("ClearCorrectText", 1f);
                 Debug.Log("Answer was incorrect. New question generated.");
             }
         }
@@ -161,5 +159,10 @@ public class BinaryPractice : MonoBehaviour
     void GameStopped()
     {
         gameStarted = false;
+    }
+
+    void ClearCorrectText()
+    {
+        correctOrIncorrectText.text = "";
     }
 }
