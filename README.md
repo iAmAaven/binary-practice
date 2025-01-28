@@ -1,2 +1,2 @@
-# minigame-collection-unity
- Unity project for small games
+# Binary Practice
+ Simple program/game for learning binary
