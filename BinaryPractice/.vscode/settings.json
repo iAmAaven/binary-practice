@@ -56,6 +56,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Minigame Collection.sln",
+    "dotnet.defaultSolution": "BinaryPractice.sln",
     "git.ignoreLimitWarning": true
 }
