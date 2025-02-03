@@ -6560,6 +6560,7 @@ MonoBehaviour:
   questionText: {fileID: 1912581723}
   correctOrIncorrectText: {fileID: 2013722318}
   inputField: {fileID: 121195385}
+  newHighScore: {fileID: 359771044}
 --- !u!1 &1854869726
 GameObject:
   m_ObjectHideFlags: 0
@@ -6713,7 +6714,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1858014600
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6772,6 +6773,7 @@ MonoBehaviour:
   questionText: {fileID: 1854869728}
   correctOrIncorrectText: {fileID: 75761636}
   inputField: {fileID: 1559398789}
+  newHighScore: {fileID: 263315496}
 --- !u!1 &1890869424
 GameObject:
   m_ObjectHideFlags: 0
@@ -7428,7 +7430,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1958220086
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7929,6 +7931,7 @@ MonoBehaviour:
   mainMenu: {fileID: 1958220085}
   classicGame: {fileID: 1781121117}
   bulletGame: {fileID: 1858014599}
+  newRecordShower: {fileID: 0}
   scoreKeeper: {fileID: 0}
   gameStarted: 0
 --- !u!1 &2113506447
