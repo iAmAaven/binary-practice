@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class BinaryPractice : MonoBehaviour
     public TMP_InputField inputField;
     public string gameMode = "bin2dec";
 
-    public GameObject mainMenu, gameMenu;
+    public GameObject mainMenu, classicGame, bulletGame;
 
 
     private int limitNumber = 1024;
@@ -17,11 +18,21 @@ public class BinaryPractice : MonoBehaviour
     private string binaryQuestion;
     private int decimalQuestion;
 
+    [HideInInspector] public ScoreKeeper scoreKeeper;
     [HideInInspector] public bool gameStarted = false;
 
-    public void StartGame(string mode)
+    public void StartGame()
     {
+        if (classicGame.activeSelf)
+            scoreKeeper = classicGame.GetComponent<ScoreKeeper>();
+        else if (bulletGame.activeSelf)
+            scoreKeeper = bulletGame.GetComponent<ScoreKeeper>();
+
         gameStarted = true;
+    }
+
+    public void ChooseGameMode(string mode)
+    {
         gameMode = mode;
     }
 
@@ -96,7 +107,9 @@ public class BinaryPractice : MonoBehaviour
             inputField.text = "";
             correctOrIncorrectText.text = "Correct!";
             correctOrIncorrectText.color = correctColor;
-            Invoke("ClearCorrectText", 1f);
+            scoreKeeper.CorrectAnswer();
+            StopAllCoroutines();
+            StartCoroutine(ClearCorrectText());
         }
         else
         {
@@ -106,7 +119,9 @@ public class BinaryPractice : MonoBehaviour
                 inputField.text = "";
                 correctOrIncorrectText.text = "Incorrect.";
                 correctOrIncorrectText.color = wrongColor;
-                Invoke("ClearCorrectText", 1f);
+                scoreKeeper.WrongAnswer();
+                StopAllCoroutines();
+                StartCoroutine(ClearCorrectText());
             }
         }
     }
@@ -129,7 +144,9 @@ public class BinaryPractice : MonoBehaviour
             inputField.text = "";
             correctOrIncorrectText.text = "Correct!";
             correctOrIncorrectText.color = correctColor;
-            Invoke("ClearCorrectText", 1f);
+            scoreKeeper.CorrectAnswer();
+            StopAllCoroutines();
+            StartCoroutine(ClearCorrectText());
         }
         else
         {
@@ -139,8 +156,9 @@ public class BinaryPractice : MonoBehaviour
                 inputField.text = "";
                 correctOrIncorrectText.text = "Incorrect.";
                 correctOrIncorrectText.color = wrongColor;
-                Invoke("ClearCorrectText", 1f);
-                Debug.Log("Answer was incorrect. New question generated.");
+                scoreKeeper.WrongAnswer();
+                StopAllCoroutines();
+                StartCoroutine(ClearCorrectText());
             }
         }
     }
@@ -152,7 +170,8 @@ public class BinaryPractice : MonoBehaviour
         inputField.text = "";
         Debug.Log("Game stopped.");
         mainMenu.SetActive(true);
-        gameMenu.SetActive(false);
+        classicGame.SetActive(false);
+        bulletGame.SetActive(false);
         Invoke("GameStopped", 0.1f);
     }
 
@@ -161,8 +180,9 @@ public class BinaryPractice : MonoBehaviour
         gameStarted = false;
     }
 
-    void ClearCorrectText()
+    IEnumerator ClearCorrectText()
     {
+        yield return new WaitForSeconds(1f);
         correctOrIncorrectText.text = "";
     }
 }
