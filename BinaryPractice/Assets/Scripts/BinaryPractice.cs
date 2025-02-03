@@ -18,6 +18,7 @@ public class BinaryPractice : MonoBehaviour
     private string binaryQuestion;
     private int decimalQuestion;
 
+    [HideInInspector] public GameObject newRecordShower;
     [HideInInspector] public ScoreKeeper scoreKeeper;
     [HideInInspector] public bool gameStarted = false;
 
@@ -169,6 +170,7 @@ public class BinaryPractice : MonoBehaviour
         questionText.text = "";
         inputField.text = "";
         Debug.Log("Game stopped.");
+        newRecordShower.SetActive(false);
         mainMenu.SetActive(true);
         classicGame.SetActive(false);
         bulletGame.SetActive(false);
