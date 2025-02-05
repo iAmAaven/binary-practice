@@ -5,37 +5,53 @@ using UnityEngine;
 public class ScoreKeeper : MonoBehaviour
 {
     public string gameMode = "Classic";
-    public int streak = 0, highScore;
-    public TextMeshProUGUI streakText, newHighScoreText, newRecordAmountText;
-
+    public int score = 0, highScore;
+    public TextMeshProUGUI scoreText, newHighScoreText, newRecordAmountText;
     private BinaryPractice binaryPractice;
 
-    void Start()
+
+    void OnEnable()
     {
         binaryPractice = FindFirstObjectByType<BinaryPractice>();
-        highScore = PlayerPrefs.GetInt(gameMode + "HighScore", 0);
+        score = 0;
+        scoreText.text = score.ToString();
+        highScore = PlayerPrefs.GetInt(binaryPractice.binaryMode + gameMode + "HighScore", 0);
+        newHighScoreText.gameObject.SetActive(false);
     }
 
     public void CorrectAnswer()
     {
-        streak++;
-        streakText.text = streak.ToString();
+        score++;
+        scoreText.text = score.ToString();
     }
 
     public void WrongAnswer()
     {
-        if (streak > highScore)
+        if (score > highScore)
         {
-            highScore = streak;
-            PlayerPrefs.SetInt(gameMode + "HighScore", highScore);
-            newHighScoreText.gameObject.SetActive(true);
-            newRecordAmountText.text = "" + highScore;
-            StopCoroutine(HideNewHighScoreText());
-            StartCoroutine(HideNewHighScoreText());
+            highScore = score;
+
+            if (gameMode == "Classic")
+            {
+                PlayerPrefs.SetInt(binaryPractice.binaryMode + "ClassicHighScore", highScore);
+                newHighScoreText.gameObject.SetActive(true);
+                newRecordAmountText.text = "" + highScore;
+                score = 0;
+                scoreText.text = score.ToString();
+                StopCoroutine(HideNewHighScoreText());
+                StartCoroutine(HideNewHighScoreText());
+            }
         }
 
-        streak = 0;
-        streakText.text = streak.ToString();
+        if (gameMode == "Classic")
+        {
+            score = 0;
+            scoreText.text = score.ToString();
+        }
+        else if (gameMode == "Bullet" && !GetComponent<BulletBinary>().isGameOver)
+        {
+            GetComponent<BulletBinary>().Reduction();
+        }
     }
 
     IEnumerator HideNewHighScoreText()

@@ -8,7 +8,7 @@ public class BinaryPractice : MonoBehaviour
     public TextMeshProUGUI questionText, correctOrIncorrectText;
     public Color wrongColor, correctColor;
     public TMP_InputField inputField;
-    public string gameMode = "bin2dec";
+    public string binaryMode = "bin2dec";
 
     public GameObject mainMenu, classicGame, bulletGame;
 
@@ -30,11 +30,12 @@ public class BinaryPractice : MonoBehaviour
             scoreKeeper = bulletGame.GetComponent<ScoreKeeper>();
 
         gameStarted = true;
+        correctOrIncorrectText.text = "";
     }
 
     public void ChooseGameMode(string mode)
     {
-        gameMode = mode;
+        binaryMode = mode;
     }
 
     public void ChooseMaxNumber(int maxNumber)
@@ -53,7 +54,7 @@ public class BinaryPractice : MonoBehaviour
             StopGame();
         }
 
-        switch (gameMode)
+        switch (binaryMode)
         {
             case "bin2dec":
                 BinaryToDecimal();
@@ -166,7 +167,7 @@ public class BinaryPractice : MonoBehaviour
 
     void StopGame()
     {
-        gameMode = "";
+        binaryMode = "";
         questionText.text = "";
         inputField.text = "";
         Debug.Log("Game stopped.");
