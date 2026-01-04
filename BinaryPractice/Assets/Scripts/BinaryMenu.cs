@@ -48,10 +48,10 @@ public class BinaryMenu : MonoBehaviour
                 gameOverMenu.SetActive(false);
                 mainMenu.SetActive(true);
             }
-            else if (mainMenu.activeSelf)
-            {
-                QuitGame();
-            }
+            // else if (mainMenu.activeSelf)
+            // {
+            //     QuitGame();
+            // }
         }
     }
     public void QuitGame()
